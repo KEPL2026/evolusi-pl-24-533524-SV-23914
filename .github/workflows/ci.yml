@@ -1,0 +1,69 @@
+name: CI Laravel
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  test:
+    name: Pengujian Laravel
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mengambil source code
+        uses: actions/checkout@v4
+
+      - name: Menyiapkan PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, sqlite3, pdo_sqlite
+          coverage: none
+
+      - name: Menginstal dependency
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Menyiapkan environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite
+
+      - name: Menjalankan migration
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan migrate --force
+
+      - name: Menjalankan pengujian
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan test
+
+  code-style:
+    name: Pemeriksaan Gaya Kode
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mengambil source code
+        uses: actions/checkout@v4
+
+      - name: Menyiapkan PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+
+      - name: Menginstal dependency
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Memeriksa gaya kode
+        run: ./vendor/bin/pint --test
