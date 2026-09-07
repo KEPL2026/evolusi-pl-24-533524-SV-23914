@@ -24,5 +24,13 @@
     <h2>
         Rp{{ number_format($product->price, 0, ',', '.') }}
     </h2>
+
+    <form method="POST" action="{{ route('cart.add', $product) }}">
+        @csrf
+
+        <button type="submit">
+            Tambah ke Keranjang
+        </button>
+    </form>
 </body>
 </html>
