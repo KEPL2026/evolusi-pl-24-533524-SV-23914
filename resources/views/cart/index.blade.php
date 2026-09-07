@@ -75,6 +75,12 @@
                 '.'
             ) }}
         </h2>
+
+        <p>
+    <a href="{{ route('checkout.create') }}">
+        Lanjut ke Checkout
+    </a>
+</p>
     @endif
 </body>
 </html>
