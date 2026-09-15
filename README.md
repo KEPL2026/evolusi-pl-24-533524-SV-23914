@@ -6,7 +6,7 @@ Project ini juga menerapkan penggunaan Git dan GitHub dalam proses pengembangan,
 
 ## Identitas Mahasiswa
 
-- Nama: [Isi Nama Lengkap]
+- Nama: Mardhika Murni Pramestika
 - NIM: 24/533524/SV/23914
 - Repository: `evolusi-pl-24-533524-SV-23914`
 
