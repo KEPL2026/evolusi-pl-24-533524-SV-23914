@@ -3,7 +3,10 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+
+Route::resource('products', ProductController::class);
 
 Route::get('/', [MenuController::class, 'index'])->name('menu.index');
 
