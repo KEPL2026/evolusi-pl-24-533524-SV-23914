@@ -22,3 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+# Deployment SSH Key
+deploy_key
+deploy_key.pub
