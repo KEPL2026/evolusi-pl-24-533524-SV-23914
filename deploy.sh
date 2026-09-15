@@ -2,15 +2,11 @@
 
 set -euo pipefail
 
-echo "============================================"
-echo "Percobaan deployment dengan urutan dibalik"
-echo "============================================"
+echo "===================================="
+echo "Memulai deployment aplikasi catering"
+echo "===================================="
 
-echo "1. Menjalankan migration SEBELUM dependency..."
-
-php artisan migrate --force
-
-echo "2. Menginstal dependency production..."
+echo "1. Menginstal dependency production..."
 
 composer install \
     --no-dev \
@@ -18,6 +14,20 @@ composer install \
     --no-interaction \
     --optimize-autoloader
 
-echo "============================================"
-echo "Deployment selesai"
-echo "============================================"
+echo "2. Membuat application key..."
+
+php artisan key:generate --force
+
+echo "3. Menjalankan migration database..."
+
+php artisan migrate --force
+
+echo "4. Membersihkan cache Laravel..."
+
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+
+echo "===================================="
+echo "Deployment berhasil"
+echo "===================================="
